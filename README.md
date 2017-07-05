@@ -30,6 +30,7 @@ alias global pwd print-working-directory
 ## See also
 
 - [kakoune-buffers](https://github.com/Delapouite/kakoune-buffers)
+- [kakoune-goto-file](https://github.com/Delapouite/kakoune-goto-file)
 
 ## Licence
 
