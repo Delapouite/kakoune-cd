@@ -1,32 +1,34 @@
-def change-directory-current-buffer -docstring 'cd to current buffer dir' %{ %sh{
-  buffer_dirname=$(dirname "${kak_bufname}")
+define-command change-directory-current-buffer -docstring 'cd to current buffer dir' %{ %sh{
+  buffer_dirname=$(dirname "$kak_bufname")
   echo "cd $buffer_dirname"
+  echo print-working-directory
 }}
 
 # only works for git now, use `hg root` for mercurial
-def change-directory-project-root -docstring 'cd to project root dir' %{ %sh{
+define-command change-directory-project-root -docstring 'cd to project root dir' %{ %sh{
   project_root=$(git rev-parse --show-toplevel)
   echo "cd $project_root"
+  echo print-working-directory
 }}
 
-def print-working-directory -docstring 'print working directory' %{ %sh{
+define-command print-working-directory -docstring 'print working directory' %{ %sh{
   echo "echo $PWD"
 }}
 
-decl -hidden str oldpwd
+declare-option -hidden str oldpwd
 
-def edit-current-buffer-directory -docstring 'edit in current buffer dir' %{
+define-command edit-current-buffer-directory -docstring 'edit in current buffer dir' %{
   %sh{ echo "set global oldpwd '$PWD'" }
   change-directory-current-buffer
-  exec :edit<space>
+  execute-keys :edit<space>
   hook -group oldpwd global BufCreate .* %{
-    cd "%opt{oldpwd}"
-    rmhooks global oldpwd
+    change-directory "%opt{oldpwd}"
+    remove-hooks global oldpwd
   }
   # on cancelled edit prompt
   hook -group oldpwd global RawKey <esc> %{
-    cd "%opt{oldpwd}"
-    rmhooks global oldpwd
+    change-directory "%opt{oldpwd}"
+    remove-hooks global oldpwd
   }
 }
 
