@@ -36,6 +36,7 @@ define-command edit-current-buffer-directory -docstring 'edit in current buffer 
 
 #map global goto d '<esc>:change-directory-current-buffer<ret>' -docstring 'current buffer dir'
 #map global goto r '<esc>:change-directory-project-root<ret>' -docstring 'project root dir'
+#map global goto p '<esc>:cd ..;print-working-directory<ret>' -docstring 'parent dir'
 #map global user e ':edit-current-buffer-directory<ret>' -docstring 'edit in current buffer dir'
 
 # Suggested aliases
