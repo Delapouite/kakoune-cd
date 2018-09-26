@@ -1,24 +1,30 @@
-define-command change-directory-current-buffer -docstring 'cd to current buffer dir' %{ %sh{
-  buffer_dirname=$(dirname "$kak_bufname")
-  echo "cd $buffer_dirname"
-  echo print-working-directory
-}}
+define-command change-directory-current-buffer -docstring 'cd to current buffer dir' %{
+  evaluate-commands %sh{
+    buffer_dirname=$(dirname "$kak_bufname")
+    echo "cd $buffer_dirname"
+    echo print-working-directory
+  }
+}
 
 # only works for git now, use `hg root` for mercurial
-define-command change-directory-project-root -docstring 'cd to project root dir' %{ %sh{
-  project_root=$(git rev-parse --show-toplevel)
-  echo "cd $project_root"
-  echo print-working-directory
-}}
+define-command change-directory-project-root -docstring 'cd to project root dir' %{
+  evaluate-commands %sh{
+    project_root=$(git rev-parse --show-toplevel)
+    echo "cd $project_root"
+    echo print-working-directory
+  }
+}
 
-define-command print-working-directory -docstring 'print working directory' %{ %sh{
-  echo "echo $PWD"
-}}
+define-command print-working-directory -docstring 'print working directory' %{
+  evaluate-commands %sh{
+    echo "echo $PWD"
+  }
+}
 
 declare-option -hidden str oldpwd
 
 define-command edit-current-buffer-directory -docstring 'edit in current buffer dir' %{
-  %sh{ echo "set global oldpwd '$PWD'" }
+  evaluate-commands %sh{ echo "set global oldpwd '$PWD'" }
   change-directory-current-buffer
   execute-keys :edit<space>
   hook -group oldpwd global BufCreate .* %{
