@@ -8,6 +8,7 @@ define-command change-directory-current-buffer -docstring 'cd to current buffer 
 
 # only works for git now, use `hg root` for mercurial
 define-command change-directory-project-root -docstring 'cd to project root dir' %{
+  change-directory-current-buffer
   evaluate-commands %sh{
     project_root=$(git rev-parse --show-toplevel)
     echo "cd $project_root"
