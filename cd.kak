@@ -18,7 +18,7 @@ define-command change-directory-project-root -docstring 'cd to project root dir'
 
 define-command print-working-directory -docstring 'print working directory' %{
   evaluate-commands %sh{
-    echo "echo $PWD"
+    echo "echo -markup {Information}$PWD"
   }
 }
 
