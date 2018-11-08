@@ -38,16 +38,17 @@ define-command edit-current-buffer-directory -docstring 'edit in current buffer 
   }
 }
 
-# Suggested mappings
-
-#map global goto d '<esc>:change-directory-current-buffer<ret>' -docstring 'current buffer dir'
-#map global goto r '<esc>:change-directory-project-root<ret>' -docstring 'project root dir'
-#map global goto p '<esc>:cd ..;print-working-directory<ret>' -docstring 'parent dir'
-#map global user e ':edit-current-buffer-directory<ret>' -docstring 'edit in current buffer dir'
+declare-user-mode cd
+map global cd b '<esc>: change-directory-current-buffer<ret>' -docstring 'current buffer dir'
+map global cd c '<esc>: cd %val{config}; print-working-directory<ret>' -docstring 'config dir'
+map global cd e '<esc>: edit-current-buffer-directory<ret>' -docstring 'edit in current buffer dir'
+map global cd h '<esc>: cd; print-working-directory<ret>' -docstring 'home dir'
+map global cd p '<esc>: cd ..; print-working-directory<ret>' -docstring 'parent dir'
+map global cd r '<esc>: change-directory-project-root<ret>' -docstring 'project root dir'
 
 # Suggested aliases
 
-#alias global cdd change-directory-current-buffer
+#alias global cdb change-directory-current-buffer
 #alias global cdr change-directory-project-root
-#alias global pwd print-working-directory
 #alias global ecd edit-current-buffer-directory
+#alias global pwd print-working-directory
