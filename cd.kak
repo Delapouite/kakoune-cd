@@ -1,7 +1,7 @@
 define-command change-directory-current-buffer -docstring 'cd to current buffer dir' %{
   evaluate-commands %sh{
     buffer_dirname=$(dirname "$kak_bufname")
-    echo "cd $buffer_dirname"
+    echo "cd \"${buffer_dirname}\""
     echo print-working-directory
   }
 }
@@ -11,7 +11,7 @@ define-command change-directory-project-root -docstring 'cd to project root dir'
   change-directory-current-buffer
   evaluate-commands %sh{
     project_root=$(git rev-parse --show-toplevel)
-    echo "cd $project_root"
+    echo "cd \"${project_root}\""
     echo print-working-directory
   }
 }
