@@ -39,10 +39,18 @@ define-command edit-current-buffer-directory -docstring 'edit in current buffer 
   }
 }
 
+define-command open-current-buffer-directory -docstring 'open current buffer dir with ranger' %{
+  evaluate-commands %sh{
+    buffer_dirname=$(dirname "$kak_bufname")
+    echo "ranger \"${buffer_dirname}\""
+  }
+}
+
 declare-user-mode cd
 map global cd b '<esc>: change-directory-current-buffer<ret>' -docstring 'current buffer dir'
 map global cd c '<esc>: cd %val{config}; print-working-directory<ret>' -docstring 'config dir'
 map global cd e '<esc>: edit-current-buffer-directory<ret>' -docstring 'edit in current buffer dir'
+map global cd f '<esc>: open-current-buffer-directory<ret>' -docstring 'open current buffer dir'
 map global cd h '<esc>: cd; print-working-directory<ret>' -docstring 'home dir'
 map global cd p '<esc>: cd ..; print-working-directory<ret>' -docstring 'parent dir'
 map global cd r '<esc>: change-directory-project-root<ret>' -docstring 'project root dir'
