@@ -9,7 +9,7 @@ Add `cd.kak` to your autoload dir: `~/.config/kak/autoload/`.
 Or via [plug.kak](https://github.com/andreyorst/plug.kak):
 
 ```
-plug 'delapouite/kakoune-cd' %{
+plug 'delapouite/kakoune-cd' config %{
   # Suggested mapping
   map global user c ': enter-user-mode cd<ret>' -docstring 'cd'
   # Suggested aliases
